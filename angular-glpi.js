@@ -384,6 +384,7 @@
         return pattern.test(range);
       }
       return {
+        validateItemType: true,
         initsession: function (url, authorization) {
           var responseDefer = $q.defer();
           var headers = {};
@@ -429,7 +430,7 @@
           if (!validURL(url)) {
             throw new Error(errorMsg.invalid_url);
           }
-          if (!validItemType(itemtype)) {
+          if (!validItemType(itemtype) && this.validateItemType) {
             throw new Error(errorMsg.invalid_url);
           }
           if (range) {
