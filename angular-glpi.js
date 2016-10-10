@@ -393,7 +393,7 @@
         getFullSession: function () { },
         getAnItem: function () { },
         getAllItems: function (url, itemtype, range) {
-          var getUsersDefer = $q.defer();
+          var getAllItemsDefer = $q.defer();
           if (!validURL(url)) {
             throw new Error(errorMsg.invalid_url);
           }
@@ -412,11 +412,11 @@
               range: range ? range : maxRange
             }
           }).success(function (resp) {
-            getUsersDefer.resolve(resp);
+            getAllItemsDefer.resolve(resp);
           }).error(function (error) {
-            getUsersDefer.reject(error);
+            getAllItemsDefer.reject(error);
           });
-          return getUsersDefer.promise;
+          return getAllItemsDefer.promise;
         },
         getSubItems: function () { },
         getMultipleItems: function () { },
