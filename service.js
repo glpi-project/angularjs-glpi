@@ -2,8 +2,11 @@
     'use strict';
 
     angular.module('ngGLPi', [])
-        .service('GLPi', Service)
-        .constant('ENDPOINTS', {
+        .service('GLPi', Service);
+
+    Service.$inject = ['$http', 'ENDPOINTS'];
+    function Service($http, ENDPOINTS) {
+        var endpoints = {
             Initsession: "/initSession/",
             Killsession: "/killSession/",
             GetMyProfiles: "/getMyProfiles/",
@@ -16,10 +19,8 @@
             GetMultipleItems: "/getMultipleItems/",
             ListSearchOptions: "/listSearchOptions/",
             SearchItems: "/search/"
-        });
+        };
 
-    Service.$inject = ['$http', 'ENDPOINTS'];
-    function Service($http, ENDPOINTS) {
         this.initsession = initsession;
         this.killsession = killsession;
         this.getMyProfiles = getMyProfiles;
