@@ -391,7 +391,7 @@
         getActiveEntities: function () { },
         changeActiveEntities: function () { },
         getFullSession: function () { },
-        getAnTtem: function () { },
+        getAnItem: function () { },
         getAllItems: function (url, itemtype, range) {
           var getUsersDefer = $q.defer();
           if (!validURL(url)) {
