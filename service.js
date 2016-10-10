@@ -2,7 +2,7 @@
     'use strict';
 
     angular.module('ngGLPi', [])
-        .service('Service', Service)
+        .service('GLPi', Service)
         .constant('ENDPOINTS', {
             Initsession: "/initSession/",
             Killsession: "/killSession/",
