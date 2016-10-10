@@ -382,7 +382,29 @@
         return pattern.test(range);
       }
       return {
-        initsession: function () { },
+        initsession: function (url, authorization) {
+          var responseDefer = $q.defer();
+          var headers = {};
+          if(authorization.basic){
+            headers.Authorization = 'Basic ' + window.btoa(authorization.login + ':' +  authorization.password);
+          }
+          if(authorization.user_token){
+            headers.Authorization = 'user_token ' + authorization.user_token;
+          }
+          if(authorization.app_token){
+            headers['App-Token'] = authorization.app_token;
+          }
+          $http({
+            method: 'GET',
+            url: url.toConcatSlash(),
+            headers: headers,
+          }).success(function (resp) {
+            responseDefer.resolve(resp);
+          }).error(function (error) {
+            responseDefer.reject(error);
+          });
+          return responseDefer.promise;
+         },
         killsession: function () { },
         getMyProfiles: function () { },
         getActiveProfile: function () { },
@@ -393,7 +415,7 @@
         getFullSession: function () { },
         getAnItem: function () { },
         getAllItems: function (url, itemtype, range) {
-          var getAllItemsDefer = $q.defer();
+          var responseDefer = $q.defer();
           if (!validURL(url)) {
             throw new Error(errorMsg.invalid_url);
           }
@@ -412,11 +434,11 @@
               range: range ? range : maxRange
             }
           }).success(function (resp) {
-            getAllItemsDefer.resolve(resp);
+            responseDefer.resolve(resp);
           }).error(function (error) {
-            getAllItemsDefer.reject(error);
+            responseDefer.reject(error);
           });
-          return getAllItemsDefer.promise;
+          return responseDefer.promise;
         },
         getSubItems: function () { },
         getMultipleItems: function () { },
