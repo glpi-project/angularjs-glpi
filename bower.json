@@ -6,6 +6,9 @@
   ],
   "description": "Bower component for GLPi API REST",
   "main": "service.js",
+  "dependencies": {
+    "angular": "~1.5.8"
+  },
   "keywords": [
     "glpi",
     "angular",
