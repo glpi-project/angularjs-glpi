@@ -1,0 +1,24 @@
+{
+  "name": "angular-glpi",
+  "homepage": "https://github.com/ajsb85/angular-glpi",
+  "authors": [
+    "Alexander J. Salas B. <asalas@teclib.com>"
+  ],
+  "description": "Bower component for GLPi API REST",
+  "main": "service.js",
+  "keywords": [
+    "glpi",
+    "angular",
+    "api",
+    "rest",
+    "service"
+  ],
+  "license": "GPL-3.0",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
