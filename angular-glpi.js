@@ -5,18 +5,18 @@
     .service('GLPi', function ($q, $http) {
       var maxRange = 1000;
       var endpoints = {
-        Initsession: "initSession/",
-        Killsession: "killSession/",
-        GetMyProfiles: "getMyProfiles/",
-        GetActiveProfile: "getActiveProfile/",
-        ChangeActiveProfile: "changeActiveProfile/",
-        GetMyEntities: "getMyEntities/",
-        GetActiveEntities: "getActiveEntities/",
-        ChangeActiveEntities: "changeActiveEntities/",
-        GetFullSession: "getFullSession/",
-        GetMultipleItems: "getMultipleItems/",
-        ListSearchOptions: "listSearchOptions/",
-        SearchItems: "search/"
+        Initsession: "initSession ",
+        Killsession: "killSession ",
+        GetMyProfiles: "getMyProfiles ",
+        GetActiveProfile: "getActiveProfile ",
+        ChangeActiveProfile: "changeActiveProfile ",
+        GetMyEntities: "getMyEntities ",
+        GetActiveEntities: "getActiveEntities ",
+        ChangeActiveEntities: "changeActiveEntities ",
+        GetFullSession: "getFullSession ",
+        GetMultipleItems: "getMultipleItems ",
+        ListSearchOptions: "listSearchOptions ",
+        SearchItems: "search"
       };
       var errorMsg = {
         invalid_url: [
