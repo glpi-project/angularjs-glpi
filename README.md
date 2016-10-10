@@ -2,6 +2,27 @@
 
 Bower component for GLPi API Rest
 
+## List of functions
+
+* GLPi.initsession() { }
+* GLPi.killsession() { }
+* GLPi.getMyProfiles() { }
+* GLPi.getActiveProfile() { }
+* GLPi.changeActiveProfile() { }
+* GLPi.getMyEntities() { }
+* GLPi.getActiveEntities() { }
+* GLPi.changeActiveEntities() { }
+* GLPi.getFullSession() { }
+* GLPi.getAnTtem() { }
+* GLPi.getAllUtems() { }
+* GLPi.getSubItems() { }
+* GLPi.getMultipleItems() { }
+* GLPi.listSearchOptions() { }
+* GLPi.searchItems() { }
+* GLPi.addItems() { }
+* GLPi.updateItems() { }
+* GLPi.deleteItems() { }
+
 ## List itemtypes
 
 * Alert
