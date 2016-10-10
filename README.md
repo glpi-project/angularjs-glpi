@@ -1,4 +1,4 @@
-# angular-glpi
+# ngGLPi
 
 Bower component for GLPi API Rest
 
