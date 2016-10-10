@@ -4,6 +4,10 @@
   angular.module('ngGLPi', [])
     .service('GLPi', function ($q, $http) {
       var maxRange = 1000;
+      var validateItemType = false;
+      var sessionToken = false;
+      var appToken = false;
+      var apiUrl = false;
       var endpoints = {
         Initsession: "initSession ",
         Killsession: "killSession ",
@@ -384,13 +388,17 @@
         return pattern.test(range);
       }
       return {
-        validateItemType: true,
+        SetValidateItemType: function (aBoolValue){
+          validateItemType = aBoolValue;
+        },
         initsession: function (url, authorization) {
           var responseDefer = $q.defer();
           var headers = {};
           headers['Content-Type'] = 'application/json';
           if (!validURL(url)) {
             throw new Error(errorMsg.invalid_url);
+          } else {
+            apiUrl = url.toConcatSlash();
           }
           if (!authorization) {
             throw new Error(errorMsg.invalid_authorization);
@@ -403,38 +411,32 @@
           }
           if (authorization.app_token) {
             headers['App-Token'] = authorization.app_token;
+            appToken = authorization.app_token;
           }
           $http({
             method: 'GET',
-            url: url.toConcatSlash() + endpoints.initsession,
+            url: apiUrl + endpoints.initsession,
             headers: headers,
             data: {},
           }).success(function (resp) {
+            sessionToken = resp.data.session_token;
             responseDefer.resolve(resp);
           }).error(function (error) {
             responseDefer.reject(error);
           });
           return responseDefer.promise;
         },
-        killsession: function (url, authorization) {
+        killsession: function () {
           var responseDefer = $q.defer();
           var headers = {};
           headers['Content-Type'] = 'application/json';
-          if (!validURL(url)) {
-            throw new Error(errorMsg.invalid_url);
-          }
-          if (!authorization) {
-            throw new Error(errorMsg.invalid_authorization);
-          }
-          if (authorization.session_token) {
-            headers['Session-Token'] = authorization.session_token;
-          }
-          if (authorization.app_token) {
-            headers['App-Token'] = authorization.app_token;
+          headers['Session-Token'] = this.sessionToken;
+          if (appToken) {
+            headers['App-Token'] = this.AppToken;
           }
           $http({
             method: 'GET',
-            url: url.toConcatSlash() + endpoints.killsession,
+            url: apiUrl + endpoints.killsession,
             headers: headers,
             data: {},
           }).success(function () {
@@ -452,11 +454,8 @@
         changeActiveEntities: function () { },
         getFullSession: function () { },
         getAnItem: function () { },
-        getAllItems: function (url, itemtype, range) {
+        getAllItems: function (itemtype, range) {
           var responseDefer = $q.defer();
-          if (!validURL(url)) {
-            throw new Error(errorMsg.invalid_url);
-          }
           if (!validItemType(itemtype) && this.validateItemType) {
             throw new Error(errorMsg.invalid_url);
           }
@@ -467,7 +466,7 @@
           }
           $http({
             method: 'GET',
-            url: url.toConcatSlash() + itemtype,
+            url: apiUrl.toConcatSlash() + itemtype,
             params: {
               range: range ? range : maxRange
             },
