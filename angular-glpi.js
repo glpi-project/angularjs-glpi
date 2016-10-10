@@ -25,6 +25,8 @@
           'ERROR_ITEM_NOT_FOUND', ''],
         invalid_range: [
           'ERROR_INVALID_RANGE', ''],
+        invalid_authorization: [
+          'ERROR_INVALID_AUTHORIZATION', ''],
       };
       String.prototype.toConcatSlash = function () {
         var lastChar = this.substr(-1);
@@ -385,13 +387,20 @@
         initsession: function (url, authorization) {
           var responseDefer = $q.defer();
           var headers = {};
-          if(authorization.basic){
-            headers.Authorization = 'Basic ' + window.btoa(authorization.login + ':' +  authorization.password);
+          headers['Content-Type'] = 'application/json';
+          if (!validURL(url)) {
+            throw new Error(errorMsg.invalid_url);
           }
-          if(authorization.user_token){
+          if (!authorization) {
+            throw new Error(errorMsg.invalid_authorization);
+          }
+          if (authorization.basic) {
+            headers.Authorization = 'Basic ' + window.btoa(authorization.login + ':' + authorization.password);
+          }
+          if (authorization.user_token) {
             headers.Authorization = 'user_token ' + authorization.user_token;
           }
-          if(authorization.app_token){
+          if (authorization.app_token) {
             headers['App-Token'] = authorization.app_token;
           }
           $http({
@@ -404,7 +413,7 @@
             responseDefer.reject(error);
           });
           return responseDefer.promise;
-         },
+        },
         killsession: function () { },
         getMyProfiles: function () { },
         getActiveProfile: function () { },
