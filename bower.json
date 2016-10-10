@@ -4,7 +4,7 @@
   "authors": [
     "Alexander J. Salas B. <asalas@teclib.com>"
   ],
-  "description": "Bower component for using AngularJS with GLPi API Rest",
+  "description": "Bower component for using AngularJS with GLPi API REST",
   "main": "service.js",
   "dependencies": {
     "angular": "~1.5.8"

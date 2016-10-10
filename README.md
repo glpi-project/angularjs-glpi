@@ -1,6 +1,6 @@
 # ngGLPi
 
-Bower component for using AngularJS with GLPi API Rest
+Bower component for using AngularJS with GLPi API REST
 
 ## Usage
 
