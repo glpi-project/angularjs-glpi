@@ -407,6 +407,7 @@
             method: 'GET',
             url: url.toConcatSlash(),
             headers: headers,
+            data: {},
           }).success(function (resp) {
             responseDefer.resolve(resp);
           }).error(function (error) {
@@ -441,7 +442,8 @@
             url: url.toConcatSlash() + itemtype,
             params: {
               range: range ? range : maxRange
-            }
+            },
+            data: {},
           }).success(function (resp) {
             responseDefer.resolve(resp);
           }).error(function (error) {
