@@ -2,6 +2,12 @@
 
 Bower component for using AngularJS with GLPi API Rest
 
+## Usage
+
+1. `bower install angular-glpi`.
+1. Include the `service.js` script, and this script's dependencies are included in your app.
+1. Add `ngGLPi` as a module dependency to your app.
+
 ## List of functions
 
 * GLPi.initsession() { }
@@ -351,3 +357,7 @@ Bower component for using AngularJS with GLPi API Rest
 * Item_DevicePowerSupply
 * Item_DeviceProcessor
 * Item_Devices
+
+## License
+
+GPL v3.0
