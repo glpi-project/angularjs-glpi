@@ -1,5 +1,7 @@
 # ngGLPi
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/ajsb85/angular-glpi.svg)](https://greenkeeper.io/)
+
 Bower component for using AngularJS with GLPi API REST
 
 ## Usage
