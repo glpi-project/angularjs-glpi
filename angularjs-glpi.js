@@ -1,8 +1,8 @@
 (function () {
   'use strict';
 
-  angular.module('ngGLPi', [])
-    .service('GLPi', function ($q, $http) {
+  angular.module('ngGLPI', [])
+    .service('GLPI', function ($q, $http) {
       var maxRange = 1000;
       var validateItemType = false;
       var sessionToken = false;
