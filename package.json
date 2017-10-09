@@ -1,14 +1,14 @@
 {
-  "name": "@teclib/angular-glpi",
+  "name": "@teclib/angularjs-glpi",
   "version": "0.1.0",
   "description": "Node Module for using AngularJS with GLPI API REST",
-  "main": "angular-glpi.js",
+  "main": "angularjs-glpi.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ajsb85/angular-glpi.git"
+    "url": "git+https://github.com/flyve-mdm/angularjs-glpi.git"
   },
   "keywords": [
     "glpi",
@@ -16,10 +16,10 @@
     "rest",
     "angularjs"
   ],
-  "author": "Alexander Salas Bastidas <a.salas@ieee.org> (http://ajsb85.com)",
+  "author": "Alexander Salas Bastidas <asalas@teclib.com> (https://teclib-edition.com)",
   "license": "GPL-3.0",
   "bugs": {
-    "url": "https://github.com/ajsb85/angular-glpi/issues"
+    "url": "https://github.com/flyve-mdm/angular-glpi/issues"
   },
-  "homepage": "https://github.com/ajsb85/angular-glpi#readme"
+  "homepage": "https://github.com/flyve-mdm/angular-glpi#readme"
 }
