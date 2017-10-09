@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "homepage": "https://github.com/flyve-mdm/angularjs-glpi",
   "authors": [
-    "Alexander J. Salas B. <asalas@teclib.com>"
+    "Alexander Salas Bastidas <asalas@teclib.com>"
   ],
   "description": "Bower component for using AngularJS with GLPi API REST",
   "main": "angular-glpi.js",
