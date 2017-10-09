@@ -1,35 +1,35 @@
-# ngGLPi
+# ngGLPI
 
-[![Greenkeeper badge](https://badges.greenkeeper.io/ajsb85/angular-glpi.svg)](https://greenkeeper.io/)
+[![Greenkeeper badge](https://badges.greenkeeper.io/flyve-mdm/angularjs-glpi.svg)](https://greenkeeper.io/)
 
-Bower component for using AngularJS with GLPi API REST
+Bower component and NPM module for using AngularJS with GLPI API REST
 
 ## Usage
 
-1. `bower install angular-glpi`.
+1. `bower install angularjs-glpi`.
 1. Include the `service.js` script, and this script's dependencies are included in your app.
-1. Add `ngGLPi` as a module dependency to your app.
+1. Add `ngGLPI` as a module dependency to your app.
 
 ## List of functions
 
-* GLPi.initsession()
-* GLPi.killsession()
-* GLPi.getMyProfiles()
-* GLPi.getActiveProfile()
-* GLPi.changeActiveProfile()
-* GLPi.getMyEntities()
-* GLPi.getActiveEntities()
-* GLPi.changeActiveEntities()
-* GLPi.getFullSession()
-* GLPi.getAnTtem()
-* GLPi.getAllUtems()
-* GLPi.getSubItems()
-* GLPi.getMultipleItems()
-* GLPi.listSearchOptions()
-* GLPi.searchItems()
-* GLPi.addItems()
-* GLPi.updateItems()
-* GLPi.deleteItems()
+* GLPI.initsession()
+* GLPI.killsession()
+* GLPI.getMyProfiles()
+* GLPI.getActiveProfile()
+* GLPI.changeActiveProfile()
+* GLPI.getMyEntities()
+* GLPI.getActiveEntities()
+* GLPI.changeActiveEntities()
+* GLPI.getFullSession()
+* GLPI.getAnTtem()
+* GLPI.getAllUtems()
+* GLPI.getSubItems()
+* GLPI.getMultipleItems()
+* GLPI.listSearchOptions()
+* GLPI.searchItems()
+* GLPI.addItems()
+* GLPI.updateItems()
+* GLPI.deleteItems()
 
 ## List itemtypes
 
