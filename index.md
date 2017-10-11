@@ -1,11 +1,6 @@
 ---
 layout: home
 ---
-# ngGLPI
-
-[![Greenkeeper badge](https://badges.greenkeeper.io/flyve-mdm/angularjs-glpi.svg)](https://greenkeeper.io/)
-
-Bower component and NPM module for using AngularJS with GLPI API REST
 
 ## Usageå
 
