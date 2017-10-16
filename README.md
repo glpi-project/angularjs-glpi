@@ -25,9 +25,16 @@ To get started, check out [Flyve MDM website](https://flyve-mdm.com/)!
 
 ## Synopsis
 
-Bower component and NPM module for using AngularJS with GLPI API REST.
+This library is specifically designed for using AngularJS with GLPI, features several functionalities common to all GLPI APIs, for example:
 
-You can see a list of the main functions and item types of the project on the [website](http://flyve.org/angularjs-glpi/).
+- HTTP transport to APIs.
+- Error handling 
+- Authentication
+- JSON parsing
+- Media download/upload
+- Batching.
+
+You will be able to call to all the methods that belong to the [GLPI REST API](https://dev.flyve.org/glpi/apirest.php), for more information such as the list of the main functions and item types of the project on the website visit the [website](http://flyve.org/angularjs-glpi/).
 
 This project is a **work in progress**. The information here provided could change at any given time.
 
