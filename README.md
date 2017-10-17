@@ -1,6 +1,6 @@
 # ngGLPI
 
-![Flyve MDM banner](https://user-images.githubusercontent.com/663460/26935464-54267e9c-4c6c-11e7-86df-8cfa6658133e.png)
+![GLPI banner](https://user-images.githubusercontent.com/29282308/31666160-8ad74b1a-b34b-11e7-839b-043255af4f58.png)
 
 [![Greenkeeper badge](https://badges.greenkeeper.io/flyve-mdm/angularjs-glpi.svg)](https://greenkeeper.io/)
 [![License](https://img.shields.io/github/license/flyve-mdm/flyve-mdm-android-inventory-agent.svg?&label=License)](https://github.com/flyve-mdm/angularjs-glpi/blob/master/LICENSE.md)
