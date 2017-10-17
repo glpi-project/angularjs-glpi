@@ -40,9 +40,9 @@ This project is a **work in progress**. The information here provided could chan
 
 ## Build Status
 
-|**Release channel**|Beta Channel|
+|**Release channel**|**Beta Channel**|
 |:---:|:---:|
-|||
+|[![Travis build](https://api.travis-ci.org/flyve-mdm/angularjs-glpi.svg?branch=master)](https://travis-ci.org/flyve-mdm/angularjs-glpi)|[![Travis build](https://api.travis-ci.org/flyve-mdm/angularjs-glpi.svg?branch=develop)](https://travis-ci.org/flyve-mdm/angularjs-glpi)|
 
 ## Installation
 
