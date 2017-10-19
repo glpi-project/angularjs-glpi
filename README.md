@@ -1,4 +1,4 @@
-# ngGLPI
+# GLPI Library for AngularJS
 
 ![GLPI banner](https://user-images.githubusercontent.com/29282308/31666160-8ad74b1a-b34b-11e7-839b-043255af4f58.png)
 
@@ -8,9 +8,9 @@
 [![Telegram Group](https://img.shields.io/badge/Telegram-Group-blue.svg)](https://t.me/flyvemdm)
 [![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg)](https://conventionalcommits.org)
 
-Flyve MDM is a mobile device management software that enables you to secure and manage all the mobile devices of your business via a unique web-based console (MDM).
+GLPI (_Gestionnaire Libre de Parc Informatique_) is a free IT Asset Management, issue tracking system and service desk solution. This open source software is written in PHP.
 
-To get started, check out [Flyve MDM website](https://flyve-mdm.com/)!
+It helps companies to manage their information system, since it's able to build an inventory of all the organization's assets and to manage administrative and financial tasks.
 
 ## Table of Contents
 
@@ -28,15 +28,13 @@ To get started, check out [Flyve MDM website](https://flyve-mdm.com/)!
 This library is specifically designed for using AngularJS with GLPI, features several functionalities common to all GLPI APIs, for example:
 
 - HTTP transport to APIs.
-- Error handling 
+- Error handling
 - Authentication
 - JSON parsing
 - Media download/upload
 - Batching.
 
 You will be able to call to all the methods that belong to the [GLPI REST API](https://dev.flyve.org/glpi/apirest.php), for more information such as the list of the main functions and item types of the project on the website visit the [website](http://flyve.org/angularjs-glpi/).
-
-This project is a **work in progress**. The information here provided could change at any given time.
 
 ## Build Status
 
