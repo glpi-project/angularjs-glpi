@@ -1,9 +1,17 @@
 title: angularjs glpi
-email: ml-flyvemdm@teclib.com
+<<<<<<< HEAD
+email: glpi@teclib.com
 twitter: glpi_project
 baseurl: "/angularjs-glpi"
 url: "https://glpi-project.github.io"   
 image: https://glpi-project.github.io/angularjs-glpi/images/logo2.png
+=======
+email: ml-flyvemdm@teclib.com
+twitter: glpi_project
+baseurl: "/angularjs-glpi"
+url: "https://glpi-project.github.iocomm"   
+image: https://glpi-project.github.iocomm/angularjs-glpi/images/logo2.png
+>>>>>>> c1dc8f8... docs(jekyll): change base URL
 
 # Build settings
 markdown: kramdown
