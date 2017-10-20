@@ -1,8 +1,8 @@
 {
-  "name": "@teclib/angularjs-glpi",
+  "name": "@glpi-project/angularjs",
   "version": "0.1.0",
   "description": "Node Module for using AngularJS with GLPI API REST",
-  "main": "angularjs-glpi.js",
+  "main": "main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
