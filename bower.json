@@ -1,14 +1,14 @@
 {
   "name": "angularjs-glpi",
   "version": "1.0.0",
-  "homepage": "https://github.com/flyve-mdm/angularjs-glpi",
+  "homepage": "https://github.com/glpi-project/angularjs-glpi",
   "authors": [
     "Alexander Salas Bastidas <asalas@teclib.com>"
   ],
-  "description": "Bower component for using AngularJS with GLPi API REST",
+  "description": "Bower component for using AngularJS with GLPI API REST",
   "main": "angularjs-glpi.js",
   "dependencies": {
-    "angular": "~1.5.8"
+    "angular": "~1.6.6"
   },
   "keywords": [
     "glpi",
