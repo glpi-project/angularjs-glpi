@@ -1,14 +1,16 @@
-# GLPI Library for AngularJS
+# GLPI API Client Library for AngularJS
 
 ![GLPI banner](https://user-images.githubusercontent.com/29282308/31666160-8ad74b1a-b34b-11e7-839b-043255af4f58.png)
-
+[![Project Status: WIP – Initial development is in progress, but there has not yet been a stable, usable release suitable for the public.](http://www.repostatus.org/badges/latest/wip.svg)](http://www.repostatus.org/#wip)
 [![Greenkeeper badge](https://badges.greenkeeper.io/glpi-project/angularjs-glpi.svg)](https://greenkeeper.io/)
 [![License](https://img.shields.io/github/license/glpi-project/angularjs-glpi.svg?&label=License)](https://github.com/glpi-project/angularjs-glpi/blob/master/LICENSE.md)
 [![Follow twitter](https://img.shields.io/twitter/follow/glpi_project.svg?style=social&label=Twitter&style=flat-square)](https://twitter.com/glpi_project)
 [![Telegram Group](https://img.shields.io/badge/Telegram-Group-blue.svg)](https://t.me/glpien)
 [![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg)](https://conventionalcommits.org)
 
-GLPI stands for Gestionnaire Libre de Parc Informatique is a Free Asset and IT Management Software package, that provides ITIL Service Desk features, licenses tracking and software auditing.
+Easily access GLPI APIs from AngularJS.
+
+**GLPI** stands for Gestionnaire Libre de Parc Informatique is a Free Asset and IT Management Software package, that provides ITIL Service Desk features, licenses tracking and software auditing.
 
 ## Table of Contents
 
@@ -25,12 +27,13 @@ GLPI stands for Gestionnaire Libre de Parc Informatique is a Free Asset and IT M
 
 This library is specifically designed for using AngularJS with GLPI, features several functionalities common to all GLPI APIs, for example:
 
-- HTTP transport to APIs.
-- Error handling
-- Authentication
-- JSON parsing
-- Media download/upload
-- Batching.
+* HTTP transport to APIs.
+* Error handling
+* Authentication
+* JSON parsing
+* Custom Item Types
+* Media download/upload
+* Batching.
 
 You will be able to call to all the methods that belong to the [GLPI REST API](https://dev.flyve.org/glpi/apirest.php), for more information such as the list of the main functions and item types of the project on the website visit the [website](http://glpi-project.github.io/angularjs-glpi/).
 
