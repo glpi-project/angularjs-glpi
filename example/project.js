@@ -44,7 +44,8 @@ angular.module('project', ['ngRoute', 'firebase'])
         };
     })
 
-    .config(function ($routeProvider) {
+    .config(function ($routeProvider, $locationProvider) {
+        $locationProvider.hashPrefix('');
         var resolveProjects = {
             projects: function (Projects) {
                 return Projects.fetch();
@@ -54,7 +55,7 @@ angular.module('project', ['ngRoute', 'firebase'])
         $routeProvider
             .when('/', {
                 controller: 'ProjectListController as projectList',
-                templateUrl: 'list.html',
+                templateUrl: '/list.html',
                 resolve: resolveProjects
             })
             .when('/edit/:projectId', {
@@ -64,7 +65,7 @@ angular.module('project', ['ngRoute', 'firebase'])
             })
             .when('/new', {
                 controller: 'NewProjectController as editProject',
-                templateUrl: 'detail.html',
+                templateUrl: '/detail.html',
                 resolve: resolveProjects
             })
             .otherwise({
