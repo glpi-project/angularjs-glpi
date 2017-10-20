@@ -8,13 +8,11 @@ Please help us process github issues faster by providing the following informati
 
 <!-- Check one of the following options with "x" -->
 
-```console
-[ ] Regression (a behavior that used to work and stopped working in a new release)
-[ ] Bug report  <!-- Please search GitHub for a similar issue or PR before submitting -->
-[ ] Feature request
-[ ] Documentation issue or request
-[ ] Support request => Please do not submit support request here, instead see https://github.com/flyve-mdm/angularjs-glpi/blob/master/CONTRIBUTING.md#questions-or-doubts
-```
+- [ ] Regression (a behavior that used to work and stopped working in a new release)
+- [ ] Bug report  <!-- Please search GitHub for a similar issue or PR before submitting -->
+- [ ] Feature request
+- [ ] Documentation issue or request
+- [ ] Support request => Please do not submit support request here, instead see https://github.com/flyve-mdm/angularjs-glpi/blob/master/CONTRIBUTING.md#questions-or-doubts
 
 ## Current behavior
 
