@@ -4,7 +4,7 @@
   "description": "Node Module for using AngularJS with GLPI API REST",
   "main": "main.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "pretest": "lints"
   },
   "repository": {
     "type": "git",
@@ -21,5 +21,8 @@
   "bugs": {
     "url": "https://github.com/glpi-project/angularjs-glpi/issues"
   },
-  "homepage": "https://github.com/glpi-project/angularjs-glpi#readme"
+  "homepage": "https://github.com/glpi-project/angularjs-glpi#readme",
+  "devDependencies": {
+    "lints": "^14.0.0"
+  }
 }
