@@ -1,6 +1,6 @@
 {
   "name": "@glpi-project/angularjs",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Node Module for using AngularJS with GLPI API REST",
   "main": "main.js",
   "scripts": {
