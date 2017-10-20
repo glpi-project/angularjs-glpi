@@ -2,14 +2,13 @@
 
 Please check if your PR fulfills the following requirements:
 
-- [ ] The commit message follows our guidelines: [Conventional Commit](https://github.com/flyve-mdm/angularjs-glpi/blob/master/CONTRIBUTING.md#submit-a-pull-request)
+- [ ] The commit message follows our guidelines: [Conventional Commit](https://conventionalcommits.org/)
 - [ ] Tests for the changes have been added (for bug fixes / features)
 - [ ] Docs have been added / updated (for bug fixes / features)
 
 ## PR Type
 
 What kind of change does this PR introduce?
-
 <!-- Please check the one that applies to this PR using "x". -->
 
 - [ ] Bugfix
