@@ -2,8 +2,8 @@ title: angularjs glpi
 email: ml-flyvemdm@teclib.com
 twitter: glpi_project
 baseurl: "/angularjs-glpi"
-url: "https://glpi-project.github.iocomm"   
-image: https://glpi-project.github.iocomm/angularjs-glpi/images/logo2.png
+url: "https://glpi-project.github.io"   
+image: https://glpi-project.github.io/angularjs-glpi/images/logo2.png
 
 # Build settings
 markdown: kramdown
