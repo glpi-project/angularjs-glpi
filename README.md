@@ -35,7 +35,7 @@ This library is specifically designed for using AngularJS with GLPI, features se
 * Media download/upload
 * Batching.
 
-You will be able to call to all the methods that belong to the [GLPI REST API](https://dev.flyve.org/glpi/apirest.php), for more information such as the list of the main functions and item types of the project on the website visit the [website](http://glpi-project.github.io/angularjs-glpi/).
+You will be able to call to all the methods that belong to the [GLPI REST API](https://dev.flyve.org/glpi/apirest.php), for more information such as the list of the main functions and item types of the project on the website visit the [website](https://glpi-project.github.io/angularjs-glpi/).
 
 ## Build Status
 
@@ -51,7 +51,7 @@ You will be able to call to all the methods that belong to the [GLPI REST API](h
 
 ## Documentation
 
-We maintain a detailed documentation of the project in the [project's website](http://glpi-project.github.io/angularjs-glpi/).
+We maintain a detailed documentation of the project in the [project's website](https://glpi-project.github.io/angularjs-glpi/).
 
 ## Versioning
 
