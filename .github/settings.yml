@@ -1,7 +1,7 @@
 repository:
   name: angularjs-glpi
   description: Bower component and NPM module for using AngularJS with GLPI API Rest
-  homepage: http://flyve.org/angularjs-glpi/
+  homepage: http://glpi-project.github.io/angularjs-glpi/
   topics: bower-component, npm-module, glpi-api
   private: false
   has_issues: true
