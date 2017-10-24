@@ -24,37 +24,115 @@
 
 (function () {
   'use strict';
-
-  angular.module('ngGLPI', [])
-    .service('GLPI', function ($q, $http) {
-      var maxRange = 1000;
-      var validateItemType = false;
-      var sessionToken = false;
-      var appToken = false;
-      var apiUrl = false;
-      var endpoints = {
-        Initsession: "initSession ",
-        Killsession: "killSession ",
-        GetMyProfiles: "getMyProfiles ",
-        GetActiveProfile: "getActiveProfile ",
-        ChangeActiveProfile: "changeActiveProfile ",
-        GetMyEntities: "getMyEntities ",
-        GetActiveEntities: "getActiveEntities ",
-        ChangeActiveEntities: "changeActiveEntities ",
-        GetFullSession: "getFullSession ",
-        GetMultipleItems: "getMultipleItems ",
-        ListSearchOptions: "listSearchOptions ",
-        SearchItems: "search"
-      };
-      var errorMsg = {
+  var options = {};
+  var GLPI = {
+    defaults: {
+      global: {
+        url: null,
+        user_token: null,
+        app_token: null,
+        max_range: '0-1000', //End of pagination
+        expand_dropdowns: false, //Show dropdown name instead of id. Optional.
+        get_hateoas: true, //Show item's relations in a links attribute. Optional.
+        only_id: false, //Keep only id keys in returned data. Optional.
+        sort: 1, //Id of the "searchoption" to sort by. Optional.
+        order: 'ASC', //Ascending sort / DESC Descending sort. Optional.
+        get_sha1: false, //Get a sha1 signature instead of the full answer. Optional.
+        with_infocoms: false, //Retrieve financial and administrative informations. Optional.
+        with_contracts: false, //Retrieve associated contracts. Optional.
+        with_documents: false, //Retrieve associated external documents. Optional.
+        with_tickets: false, //Retrieve associated itil tickets. Optional.
+        with_problems: false, //Retrieve associated itil problems. Optional.
+        with_changes: false, //Retrieve associated itil changes. Optional.
+        with_notes: false, //Retrieve Notes. Optional.
+        with_logs: false, //Retrieve historical. Optional.
+      },
+      computer: {
+        with_components: false, //Retrieve the associated components. Optional.
+        with_disks: false, //Retrieve the associated file-systems. Optional.
+        with_softwares: false, //Only for Computer, retrieve the associated software's installations. Optional.
+        with_connections: false, //Only for Computer, retrieve the associated direct connections (like peripherals and printers) .Optional.
+        with_networkports: false, //Retrieve all network's connections and advanced network's informations. Optional.
+      },
+      error_msg: {
         invalid_url: [
           'ERROR_INVALID_URL', ''],
-        invalid_itemtype: [
+        invalid_item_type: [
           'ERROR_ITEM_NOT_FOUND', ''],
         invalid_range: [
           'ERROR_INVALID_RANGE', ''],
         invalid_authorization: [
           'ERROR_INVALID_AUTHORIZATION', ''],
+      }
+    },
+    getOptions: function (type) {
+      var typeOptions = type && options[type] || {};
+      return angular.extend({}, options, typeOptions);
+    }
+  };
+
+  function GlpiProvider() {
+    /**
+     * Allow to set global options during configuration
+     */
+    return {
+      setOptions: function (itemType, customOptions) {
+        // If no itemType was specified set option for the global object
+        if (!customOptions) {
+          customOptions = itemType;
+          options = angular.merge(options, customOptions);
+        } else {
+          // Set options for the specific item
+          options[itemType] = angular.merge(options[itemType] || {}, customOptions);
+        }
+        options = (function validations(options, errorMsg) {
+          if (options.global.url) {
+            var pattern = new RegExp('^(https?:\\/\\/)?' + // protocol
+              '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.?)+[a-z]{2,}|' + // domain name
+              '((\\d{1,3}\\.){3}\\d{1,3}))' + // OR ip (v4) address
+              '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*' + // port and path
+              '(\\?[;&a-z\\d%_.~+=-]*)?' + // query string
+              '(\\#[-a-z\\d_]*)?$', 'i'); // fragment locator
+            if (pattern.test(options.global.url)) {
+              var lastChar = options.global.url.substr(-1);
+              if (lastChar !== '/') {
+                options.global.url = options.global.url + '/';
+              }
+              options.global.url = options.global.url;
+            } else {
+              throw new Error(errorMsg.invalid_url);
+            }
+          }
+          return options;
+        })(options, GLPI.defaults.error_msg);
+        angular.merge(GLPI.defaults, options);
+      },
+      $get: function () {
+        return GlpiProvider;
+      }
+    };
+  }
+  angular.module('ngGLPI', [])
+    .provider('Glpi', GlpiProvider)
+    .service('GLPI', function ($q, $http) {
+      var sessionToken = null;
+      var errorMsg = GLPI.defaults.error_msg;
+      var apiUrl = GLPI.defaults.global.url;
+      var appToken = GLPI.defaults.global.app_token;
+      var maxRange = GLPI.defaults.global.max_range;
+      var endpoints = {
+        init_session: "initSession",
+        kill_session: "killSession",
+        get_my_profiles: "getMyProfiles",
+        get_active_profile: "getActiveProfile",
+        change_active_profile: "changeActiveProfile",
+        get_my_entities: "getMyEntities",
+        get_active_entities: "getActiveEntities",
+        change_active_entities: "changeActiveEntities",
+        get_full_session: "getFullSession",
+        get_multiple_items: "getMultipleItems",
+        list_search_options: "listSearchOptions",
+        search_items: "search"
       };
       String.prototype.toConcatSlash = function () {
         var lastChar = this.substr(-1);
@@ -63,367 +141,18 @@
         }
         return this;
       };
-      function validURL(url) { //ToDo validate a GLPi API REST URL
-        var pattern = new RegExp('^(https?:\\/\\/)?' + // protocol
-          '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.?)+[a-z]{2,}|' + // domain name
-          '((\\d{1,3}\\.){3}\\d{1,3}))' + // OR ip (v4) address
-          '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*' + // port and path
-          '(\\?[;&a-z\\d%_.~+=-]*)?' + // query string
-          '(\\#[-a-z\\d_]*)?$', 'i'); // fragment locator
-        return pattern.test(url);
-      }
-      function validItemType(itemtype) {
-        var itemtypes = [
-          'Alert',
-          'AuthLDAP',
-          'Computer',
-          'Config',
-          'ConsumableItem',
-          'Contact',
-          'Contract',
-          'CronTask',
-          'CronTaskLog',
-          'DBConnection',
-          'DisplayPreference',
-          'Document',
-          'AuthLdapReplicate',
-          'Event',
-          'KnowbaseItem',
-          'Link',
-          'Log',
-          'MailCollector',
-          'Monitor',
-          'NetworkEquipment',
-          'Notification',
-          'NotificationEvent',
-          'NotificationMailSetting',
-          'AuthMail',
-          'NotificationTemplate',
-          'NotImportedEmail',
-          'Peripheral',
-          'Phone',
-          'Plugin',
-          'Printer',
-          'Profile',
-          'Project',
-          'QueuedMail',
-          'Reminder',
-          'Bookmark',
-          'RSSFeed',
-          'Rule',
-          'RuleCollection',
-          'SLA',
-          'SlaLevel_Ticket',
-          'Software',
-          'SoftwareLicense',
-          'Supplier',
-          'TicketFollowup',
-          'TicketSatisfaction',
-          'CartridgeItem',
-          'Transfer',
-          'User',
-          'CommonDBConnexity',
-          'CommonDropdown',
-          'CommonITILObject',
-          'CommonITILTask',
-          'AutoUpdateSystem',
-          'Blacklist',
-          'CartridgeItemType',
-          'Item_DeviceSoundCard',
-          'Item_Problem',
-          'Item_Project',
-          'Item_Ticket',
-          'ITILCategory',
-          'KnowbaseItem_Profile',
-          'KnowbaseItem_User',
-          'KnowbaseItemCategory',
-          'KnowbaseItemTranslation',
-          'Link_Itemtype',
-          'Change',
-          'Location',
-          'Manufacturer',
-          'MonitorModel',
-          'MonitorType',
-          'Netpoint',
-          'Network',
-          'NetworkAlias',
-          'NetworkEquipmentFirmware',
-          'NetworkEquipmentModel',
-          'NetworkEquipmentType',
-          'Change_Group',
-          'NetworkInterface',
-          'NetworkName',
-          'NetworkPort',
-          'NetworkPort_NetworkPort',
-          'NetworkPort_Vlan',
-          'NetworkPortAggregate',
-          'NetworkPortAlias',
-          'NetworkPortDialup',
-          'NetworkPortEthernet',
-          'NetworkPortInstantiation',
-          'Change_Item',
-          'NetworkPortLocal',
-          'NetworkPortMigration',
-          'NetworkPortWifi',
-          'Notepad',
-          'NotificationTarget',
-          'NotificationTargetCartridgeItem',
-          'NotificationTargetChange',
-          'NotificationTargetCommonITILObject',
-          'NotificationTargetConsumableItem',
-          'NotificationTargetContract',
-          'Change_Problem',
-          'NotificationTargetCrontask',
-          'NotificationTargetDBConnection',
-          'NotificationTargetFieldUnicity',
-          'NotificationTargetInfocom',
-          'NotificationTargetMailCollector',
-          'NotificationTargetPlanningRecall',
-          'NotificationTargetProblem',
-          'NotificationTargetProject',
-          'NotificationTargetProjectTask',
-          'NotificationTargetReservation',
-          'Change_Project',
-          'NotificationTargetSoftwareLicense',
-          'NotificationTargetTicket',
-          'NotificationTargetUser',
-          'NotificationTemplateTranslation',
-          'OperatingSystem',
-          'OperatingSystemServicePack',
-          'OperatingSystemVersion',
-          'PeripheralModel',
-          'PeripheralType',
-          'PhoneModel',
-          'Change_Supplier',
-          'PhonePowerSupply',
-          'PhoneType',
-          'PlanningRecall',
-          'PrinterModel',
-          'PrinterType',
-          'Problem',
-          'Problem_Supplier',
-          'Problem_Ticket',
-          'Problem_User',
-          'ProblemCost',
-          'Change_Ticket',
-          'ProblemTask',
-          'Profile_Reminder',
-          'Profile_RSSFeed',
-          'Profile_User',
-          'ProfileRight',
-          'ProjectCost',
-          'ProjectState',
-          'ProjectTask',
-          'ProjectTask_Ticket',
-          'ProjectTaskTeam',
-          'Change_User',
-          'ProjectTaskType',
-          'ProjectTeam',
-          'ProjectType',
-          'RegisteredID',
-          'Reminder_User',
-          'RequestType',
-          'Reservation',
-          'ReservationItem',
-          'RSSFeed_User',
-          'RuleAction',
-          'ChangeCost',
-          'RuleCriteria',
-          'RuleDictionnaryComputerModel',
-          'RuleDictionnaryComputerModelCollection',
-          'RuleDictionnaryComputerType',
-          'RuleDictionnaryComputerTypeCollection',
-          'RuleDictionnaryDropdown',
-          'RuleDictionnaryDropdownCollection',
-          'RuleDictionnaryManufacturer',
-          'RuleDictionnaryManufacturerCollection',
-          'RuleDictionnaryMonitorModel',
-          'BlacklistedMailContent',
-          'ChangeTask',
-          'RuleDictionnaryMonitorModelCollection',
-          'RuleDictionnaryMonitorType',
-          'RuleDictionnaryMonitorTypeCollection',
-          'RuleDictionnaryNetworkEquipmentModel',
-          'RuleDictionnaryNetworkEquipmentModelCollection',
-          'RuleDictionnaryNetworkEquipmentType',
-          'RuleDictionnaryNetworkEquipmentTypeCollection',
-          'RuleDictionnaryOperatingSystem',
-          'RuleDictionnaryOperatingSystemCollection',
-          'RuleDictionnaryOperatingSystemServicePack',
-          'ChangeValidation',
-          'RuleDictionnaryOperatingSystemServicePackCollection',
-          'RuleDictionnaryOperatingSystemVersion',
-          'RuleDictionnaryOperatingSystemVersionCollection',
-          'RuleDictionnaryPeripheralModel',
-          'RuleDictionnaryPeripheralModelCollection',
-          'RuleDictionnaryPeripheralType',
-          'RuleDictionnaryPeripheralTypeCollection',
-          'RuleDictionnaryPhoneModel',
-          'RuleDictionnaryPhoneModelCollection',
-          'RuleDictionnaryPhoneType',
-          'CommonDBChild',
-          'RuleDictionnaryPhoneTypeCollection',
-          'RuleDictionnaryPrinter',
-          'RuleDictionnaryPrinterCollection',
-          'RuleDictionnaryPrinterModel',
-          'RuleDictionnaryPrinterModelCollection',
-          'RuleDictionnaryPrinterType',
-          'RuleDictionnaryPrinterTypeCollection',
-          'RuleDictionnarySoftware',
-          'RuleDictionnarySoftwareCollection',
-          'RuleImportComputer',
-          'CommonDBRelation',
-          'RuleImportComputerCollection',
-          'RuleImportEntity',
-          'RuleImportEntityCollection',
-          'RuleMailCollector',
-          'RuleMailCollectorCollection',
-          'RuleRight',
-          'RuleRightCollection',
-          'RuleRightParameter',
-          'RuleSoftwareCategory',
-          'RuleSoftwareCategoryCollection',
-          'CommonDevice',
-          'RuleTicket',
-          'RuleTicketCollection',
-          'SlaLevel',
-          'SlaLevelAction',
-          'SlaLevelCriteria',
-          'SoftwareCategory',
-          'SoftwareLicenseType',
-          'SoftwareVersion',
-          'SolutionTemplate',
-          'SolutionType',
-          'CommonImplicitTreeDropdown',
-          'SsoVariable',
-          'State',
-          'Supplier_Ticket',
-          'SupplierType',
-          'TaskCategory',
-          'Ticket',
-          'Ticket_Ticket',
-          'Ticket_User',
-          'TicketCost',
-          'TicketRecurrent',
-          'CommonITILActor',
-          'TicketTask',
-          'TicketTemplate',
-          'TicketTemplateHiddenField',
-          'TicketTemplateMandatoryField',
-          'TicketTemplatePredefinedField',
-          'TicketValidation',
-          'UserCategory',
-          'UserEmail',
-          'UserTitle',
-          'VirtualMachineState',
-          'CommonITILCost',
-          'VirtualMachineSystem',
-          'VirtualMachineType',
-          'Vlan',
-          'WifiNetwork',
-          'CommonITILValidation',
-          'CommonTreeDropdown',
-          'Bookmark_User',
-          'Computer_Item',
-          'Computer_SoftwareLicense',
-          'Computer_SoftwareVersion',
-          'ComputerDisk',
-          'ComputerModel',
-          'ComputerType',
-          'ComputerVirtualMachine',
-          'Consumable',
-          'ConsumableItemType',
-          'Contact_Supplier',
-          'Budget',
-          'ContactType',
-          'Contract_Item',
-          'Contract_Supplier',
-          'ContractCost',
-          'ContractType',
-          'DeviceCase',
-          'DeviceCaseType',
-          'DeviceControl',
-          'DeviceDrive',
-          'DeviceGraphicCard',
-          'Calendar',
-          'DeviceHardDrive',
-          'DeviceMemory',
-          'DeviceMemoryType',
-          'DeviceMotherboard',
-          'DeviceNetworkCard',
-          'DevicePci',
-          'DevicePowerSupply',
-          'DeviceProcessor',
-          'DeviceSoundCard',
-          'Document_Item',
-          'Calendar_Holiday',
-          'DocumentCategory',
-          'DocumentType',
-          'Domain',
-          'DropdownTranslation',
-          'Entity',
-          'Entity_KnowbaseItem',
-          'Entity_Reminder',
-          'Entity_RSSFeed',
-          'Fieldblacklist',
-          'FieldUnicity',
-          'CalendarSegment',
-          'Filesystem',
-          'FQDN',
-          'FQDNLabel',
-          'Group',
-          'Group_KnowbaseItem',
-          'Group_Problem',
-          'Group_Reminder',
-          'Group_RSSFeed',
-          'Group_Ticket',
-          'Group_User',
-          'Cartridge',
-          'Holiday',
-          'Infocom',
-          'InterfaceType',
-          'IPAddress',
-          'IPAddress_IPNetwork',
-          'IPNetmask',
-          'IPNetwork',
-          'IPNetwork_Vlan',
-          'Item_DeviceCase',
-          'Item_DeviceControl',
-          'CartridgeItem_PrinterModel',
-          'Item_DeviceDrive',
-          'Item_DeviceGraphicCard',
-          'Item_DeviceHardDrive',
-          'Item_DeviceMemory',
-          'Item_DeviceMotherboard',
-          'Item_DeviceNetworkCard',
-          'Item_DevicePci',
-          'Item_DevicePowerSupply',
-          'Item_DeviceProcessor',
-          'Item_Devices'];
-        var found = itemtypes.indexOf(itemtype);
-        if (found === -1) {
-          return false;
-        } else {
-          return true;
-        }
-      }
       function validRange(range) {
         var pattern = new RegExp('/^\d+-\d+|\*$/');
         return pattern.test(range);
       }
       return {
-        SetValidateItemType: function (aBoolValue){
-          validateItemType = aBoolValue;
+        getOptions: function (type) {
+          return GLPI.getOptions(type);
         },
-        initsession: function (url, authorization) {
+        initsession: function (authorization) {
           var responseDefer = $q.defer();
           var headers = {};
           headers['Content-Type'] = 'application/json';
-          if (!validURL(url)) {
-            throw new Error(errorMsg.invalid_url);
-          } else {
-            apiUrl = url.toConcatSlash();
-          }
           if (!authorization) {
             throw new Error(errorMsg.invalid_authorization);
           }
@@ -442,10 +171,10 @@
             url: apiUrl + endpoints.initsession,
             headers: headers,
             data: {},
-          }).success(function (resp) {
-            sessionToken = resp.data.session_token;
-            responseDefer.resolve(resp);
-          }).error(function (error) {
+          }).then(function (response) {
+            sessionToken = response.data.session_token;
+            responseDefer.resolve(sessionToken);
+          }, function (error) {
             responseDefer.reject(error);
           });
           return responseDefer.promise;
@@ -463,9 +192,9 @@
             url: apiUrl + endpoints.killsession,
             headers: headers,
             data: {},
-          }).success(function () {
+          }).then(function () {
             responseDefer.resolve();
-          }).error(function (error) {
+          }, function (error) {
             responseDefer.reject(error);
           });
           return responseDefer.promise;
@@ -480,9 +209,6 @@
         getAnItem: function () { },
         getAllItems: function (itemtype, range) {
           var responseDefer = $q.defer();
-          if (!validItemType(itemtype) && this.validateItemType) {
-            throw new Error(errorMsg.invalid_url);
-          }
           if (range) {
             if (!validRange(range)) {
               throw new Error(errorMsg.invalid_range);
@@ -495,16 +221,26 @@
               range: range ? range : maxRange
             },
             data: {},
-          }).success(function (resp) {
-            responseDefer.resolve(resp);
-          }).error(function (error) {
+          }).then(function (response) {
+            responseDefer.resolve(response);
+          }, function (error) {
             responseDefer.reject(error);
           });
           return responseDefer.promise;
         },
         getSubItems: function () { },
         getMultipleItems: function () { },
-        listSearchOptions: function () { },
+        listSearchOptions: function (item_type, range) {
+          var responseDefer = $q.defer();
+          if (range) {
+            if (!validRange(range)) {
+              throw new Error(errorMsg.invalid_range);
+            }
+          }
+          var store = {};
+          store[item_type.toString()] = "&id,name,table,field,datatype,available_searchtypes,uid";
+          return responseDefer.promise;
+        },
         searchItems: function () { },
         addItems: function () { },
         updateItems: function () { },
