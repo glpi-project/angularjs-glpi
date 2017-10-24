@@ -1,0 +1,7 @@
+language: node_js
+node_js:
+  - "6"
+  - "8"
+
+notifications:
+  webhooks: https://hooks.aethonan.pro/travisci/-1001061475099/
