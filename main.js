@@ -229,6 +229,8 @@
             canceller.resolve(reason);
           };
           var responseDefer = $q.defer();
+          var headers = {};
+          headers['Content-Type'] = 'application/json';
           if (range) {
             if (!validRange(range)) {
               throw new Error(errorMsg.invalid_range);
@@ -241,6 +243,7 @@
             params: {
               range: range ? range : maxRange
             },
+            headers: headers,
             data: {},
           }).then(function (response) {
             responseDefer.resolve(response);
@@ -260,6 +263,8 @@
             canceller.resolve(reason);
           };
           var responseDefer = $q.defer();
+          var headers = {};
+          headers['Content-Type'] = 'application/json';
           if (range) {
             if (!validRange(range)) {
               throw new Error(errorMsg.invalid_range);
