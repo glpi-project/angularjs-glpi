@@ -564,7 +564,36 @@
             cancel: cancel
           };
         },
-        deleteItems: function () { }
+        deleteItems: function (itemtype, input) {
+          var canceller = $q.defer();
+          var cancel = function (reason) {
+            canceller.resolve(reason);
+          };
+          var responseDefer = $q.defer();
+          var headers = {};
+          headers['Content-Type'] = 'application/json';
+          headers['Session-Token'] = this.sessionToken;
+          if (this.appToken) {
+            headers['App-Token'] = this.appToken;
+          }
+          $http({
+            method: 'DELETE',
+            timeout: canceller.promise,
+            url: this.apiUrl.toConcatSlash() + itemtype,
+            headers: headers,
+            data: {
+              input: input
+            },
+          }).then(function (response) {
+            responseDefer.resolve(response);
+          }, function (error) {
+            responseDefer.reject(error);
+          });
+          return {
+            promise: responseDefer.promise,
+            cancel: cancel
+          };
+        },
       };
     });
 })();
