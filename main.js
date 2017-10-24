@@ -123,6 +123,7 @@
       this.endpoints = {
         initSession: "initSession",
         killSession: "killSession",
+        lostPassword: "lostPassword",
         getMyProfiles: "getMyProfiles",
         getActiveProfile: "getActiveProfile",
         changeActiveProfile: "changeActiveProfile",
@@ -476,6 +477,41 @@
         },
         searchItems: function () { },
         addItems: function () { },
+        lostPassword: function (email, passwordForgetToken, password) {
+          var canceller = $q.defer();
+          var cancel = function (reason) {
+            canceller.resolve(reason);
+          };
+          var responseDefer = $q.defer();
+          var headers = {};
+          headers['Content-Type'] = 'application/json';
+          headers['Session-Token'] = this.sessionToken;
+          if (this.appToken) {
+            headers['App-Token'] = this.appToken;
+          }
+          var data = {
+            email: email
+          };
+          if (passwordForgetToken) {
+            data.password_forget_token = passwordForgetToken;
+            data.password = password;
+          }
+          $http({
+            method: 'PUT',
+            timeout: canceller.promise,
+            url: this.apiUrl + this.endpoints.lostPassword,
+            headers: headers,
+            data: data,
+          }).then(function (response) {
+            responseDefer.resolve(response);
+          }, function (error) {
+            responseDefer.reject(error);
+          });
+          return {
+            promise: responseDefer.promise,
+            cancel: cancel
+          };
+        },
         updateItem: function (itemtype, id, input) {
           var canceller = $q.defer();
           var cancel = function (reason) {
