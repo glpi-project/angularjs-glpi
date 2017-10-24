@@ -115,24 +115,24 @@
   angular.module('ngGLPI', [])
     .provider('Glpi', GlpiProvider)
     .service('GLPI', function ($q, $http) {
-      var sessionToken = null;
-      var errorMsg = GLPI.defaults.error_msg;
-      var apiUrl = GLPI.defaults.global.url;
-      var appToken = GLPI.defaults.global.app_token;
-      var maxRange = GLPI.defaults.global.max_range;
-      var endpoints = {
-        init_session: "initSession",
-        kill_session: "killSession",
-        get_my_profiles: "getMyProfiles",
-        get_active_profile: "getActiveProfile",
-        change_active_profile: "changeActiveProfile",
-        get_my_entities: "getMyEntities",
-        get_active_entities: "getActiveEntities",
-        change_active_entities: "changeActiveEntities",
-        get_full_session: "getFullSession",
-        get_multiple_items: "getMultipleItems",
-        list_search_options: "listSearchOptions",
-        search_items: "search"
+      this.sessionToken = null;
+      this.errorMsg = GLPI.defaults.error_msg;
+      this.apiUrl = GLPI.defaults.global.url;
+      this.appToken = GLPI.defaults.global.app_token;
+      this.maxRange = GLPI.defaults.global.max_range;
+      this.endpoints = {
+        initSession: "initSession",
+        killSession: "killSession",
+        getMyProfiles: "getMyProfiles",
+        getActiveProfile: "getActiveProfile",
+        changeActiveProfile: "changeActiveProfile",
+        getMyEntities: "getMyEntities",
+        getActiveEntities: "getActiveEntities",
+        changeActiveEntities: "changeActiveEntities",
+        getFullSession: "getFullSession",
+        getMultipleItems: "getMultipleItems",
+        listSearchOptions: "listSearchOptions",
+        search: "search"
       };
       String.prototype.toConcatSlash = function () {
         var lastChar = this.substr(-1);
@@ -158,7 +158,7 @@
           var headers = {};
           headers['Content-Type'] = 'application/json';
           if (!authorization) {
-            throw new Error(errorMsg.invalid_authorization);
+            throw new Error(this.errorMsg.invalid_authorization);
           }
           if (authorization.basic) {
             headers.Authorization = 'Basic ' + window.btoa(authorization.login + ':' + authorization.password);
@@ -168,17 +168,17 @@
           }
           if (authorization.app_token) {
             headers['App-Token'] = authorization.app_token;
-            appToken = authorization.app_token;
+            this.appToken = authorization.app_token;
           }
           $http({
             method: 'GET',
             timeout: canceller.promise,
-            url: apiUrl + endpoints.initsession,
+            url: this.apiUrl + this.endpoints.initsession,
             headers: headers,
             data: {},
           }).then(function (response) {
-            sessionToken = response.data.session_token;
-            responseDefer.resolve(sessionToken);
+            this.sessionToken = response.data.session_token;
+            responseDefer.resolve(this.sessionToken);
           }, function (error) {
             responseDefer.reject(error);
           });
@@ -187,7 +187,7 @@
             cancel: cancel
           };
         },
-        killsession: function () {
+        killSession: function () {
           var canceller = $q.defer();
           var cancel = function (reason) {
             canceller.resolve(reason);
@@ -196,13 +196,13 @@
           var headers = {};
           headers['Content-Type'] = 'application/json';
           headers['Session-Token'] = this.sessionToken;
-          if (appToken) {
-            headers['App-Token'] = this.AppToken;
+          if (this.appToken) {
+            headers['App-Token'] = this.appToken;
           }
           $http({
             method: 'GET',
             timeout: canceller.promise,
-            url: apiUrl + endpoints.killsession,
+            url: this.apiUrl + this.endpoints.killSession,
             headers: headers,
             data: {},
           }).then(function () {
@@ -215,14 +215,176 @@
             cancel: cancel
           };
         },
-        getMyProfiles: function () { },
-        getActiveProfile: function () { },
+        getMyProfiles: function () {
+          var canceller = $q.defer();
+          var cancel = function (reason) {
+            canceller.resolve(reason);
+          };
+          var responseDefer = $q.defer();
+          var headers = {};
+          headers['Content-Type'] = 'application/json';
+          headers['Session-Token'] = this.sessionToken;
+          if (this.appToken) {
+            headers['App-Token'] = this.appToken;
+          }
+          $http({
+            method: 'GET',
+            timeout: canceller.promise,
+            url: this.apiUrl + this.endpoints.getMyProfiles,
+            headers: headers,
+            data: {},
+          }).then(function () {
+            responseDefer.resolve();
+          }, function (error) {
+            responseDefer.reject(error);
+          });
+          return {
+            promise: responseDefer.promise,
+            cancel: cancel
+          };
+        },
+        getActiveProfile: function () {
+          var canceller = $q.defer();
+          var cancel = function (reason) {
+            canceller.resolve(reason);
+          };
+          var responseDefer = $q.defer();
+          var headers = {};
+          headers['Content-Type'] = 'application/json';
+          headers['Session-Token'] = this.sessionToken;
+          if (this.appToken) {
+            headers['App-Token'] = this.appToken;
+          }
+          $http({
+            method: 'GET',
+            timeout: canceller.promise,
+            url: this.apiUrl + this.endpoints.getActiveProfile,
+            headers: headers,
+            data: {},
+          }).then(function () {
+            responseDefer.resolve();
+          }, function (error) {
+            responseDefer.reject(error);
+          });
+          return {
+            promise: responseDefer.promise,
+            cancel: cancel
+          };
+        },
         changeActiveProfile: function () { },
-        getMyEntities: function () { },
-        getActiveEntities: function () { },
+        getMyEntities: function () {
+          var canceller = $q.defer();
+          var cancel = function (reason) {
+            canceller.resolve(reason);
+          };
+          var responseDefer = $q.defer();
+          var headers = {};
+          headers['Content-Type'] = 'application/json';
+          headers['Session-Token'] = this.sessionToken;
+          if (this.appToken) {
+            headers['App-Token'] = this.appToken;
+          }
+          $http({
+            method: 'GET',
+            timeout: canceller.promise,
+            url: this.apiUrl + this.endpoints.getMyEntities,
+            headers: headers,
+            data: {},
+          }).then(function () {
+            responseDefer.resolve();
+          }, function (error) {
+            responseDefer.reject(error);
+          });
+          return {
+            promise: responseDefer.promise,
+            cancel: cancel
+          };
+        },
+        getActiveEntities: function () {
+          var canceller = $q.defer();
+          var cancel = function (reason) {
+            canceller.resolve(reason);
+          };
+          var responseDefer = $q.defer();
+          var headers = {};
+          headers['Content-Type'] = 'application/json';
+          headers['Session-Token'] = this.sessionToken;
+          if (this.appToken) {
+            headers['App-Token'] = this.appToken;
+          }
+          $http({
+            method: 'GET',
+            timeout: canceller.promise,
+            url: this.apiUrl + this.endpoints.getActiveEntities,
+            headers: headers,
+            data: {},
+          }).then(function () {
+            responseDefer.resolve();
+          }, function (error) {
+            responseDefer.reject(error);
+          });
+          return {
+            promise: responseDefer.promise,
+            cancel: cancel
+          };
+        },
         changeActiveEntities: function () { },
-        getFullSession: function () { },
-        getAnItem: function () { },
+        getFullSession: function () {
+          var canceller = $q.defer();
+          var cancel = function (reason) {
+            canceller.resolve(reason);
+          };
+          var responseDefer = $q.defer();
+          var headers = {};
+          headers['Content-Type'] = 'application/json';
+          headers['Session-Token'] = this.sessionToken;
+          if (this.appToken) {
+            headers['App-Token'] = this.appToken;
+          }
+          $http({
+            method: 'GET',
+            timeout: canceller.promise,
+            url: this.apiUrl + this.endpoints.getActiveEntities,
+            headers: headers,
+            data: {},
+          }).then(function () {
+            responseDefer.resolve();
+          }, function (error) {
+            responseDefer.reject(error);
+          });
+          return {
+            promise: responseDefer.promise,
+            cancel: cancel
+          };
+        },
+        getAnItem: function (itemtype, id) {
+          var canceller = $q.defer();
+          var cancel = function (reason) {
+            canceller.resolve(reason);
+          };
+          var responseDefer = $q.defer();
+          var headers = {};
+          headers['Content-Type'] = 'application/json';
+          headers['Session-Token'] = this.sessionToken;
+          if (this.appToken) {
+            headers['App-Token'] = this.appToken;
+          }
+          $http({
+            method: 'GET',
+            timeout: canceller.promise,
+            url: this.apiUrl.toConcatSlash() + itemtype + '/' + parseInt(id),
+            headers: headers,
+            data: {},
+          }).then(function (response) {
+            responseDefer.resolve(response);
+          }, function (error) {
+            responseDefer.reject(error);
+          });
+          return {
+            promise: responseDefer.promise,
+            cancel: cancel
+          };
+        },
         getAllItems: function (itemtype, range) {
           var canceller = $q.defer();
           var cancel = function (reason) {
@@ -231,17 +393,21 @@
           var responseDefer = $q.defer();
           var headers = {};
           headers['Content-Type'] = 'application/json';
+          headers['Session-Token'] = this.sessionToken;
+          if (this.appToken) {
+            headers['App-Token'] = this.appToken;
+          }
           if (range) {
             if (!validRange(range)) {
-              throw new Error(errorMsg.invalid_range);
+              throw new Error(this.errorMsg.invalid_range);
             }
           }
           $http({
             method: 'GET',
             timeout: canceller.promise,
-            url: apiUrl.toConcatSlash() + itemtype,
+            url: this.apiUrl.toConcatSlash() + itemtype,
             params: {
-              range: range ? range : maxRange
+              range: range ? range : this.maxRange
             },
             headers: headers,
             data: {},
@@ -265,9 +431,13 @@
           var responseDefer = $q.defer();
           var headers = {};
           headers['Content-Type'] = 'application/json';
+          headers['Session-Token'] = this.sessionToken;
+          if (this.appToken) {
+            headers['App-Token'] = this.appToken;
+          }
           if (range) {
             if (!validRange(range)) {
-              throw new Error(errorMsg.invalid_range);
+              throw new Error(this.errorMsg.invalid_range);
             }
           }
           var store = {};
@@ -279,7 +449,63 @@
         },
         searchItems: function () { },
         addItems: function () { },
+        updateItem: function (itemtype, id) {
+          var canceller = $q.defer();
+          var cancel = function (reason) {
+            canceller.resolve(reason);
+          };
+          var responseDefer = $q.defer();
+          var headers = {};
+          headers['Content-Type'] = 'application/json';
+          headers['Session-Token'] = this.sessionToken;
+          if (this.appToken) {
+            headers['App-Token'] = this.appToken;
+          }
+          $http({
+            method: 'PUT',
+            timeout: canceller.promise,
+            url: this.apiUrl.toConcatSlash() + itemtype + '/' + parseInt(id),
+            headers: headers,
+            data: {},
+          }).then(function (response) {
+            responseDefer.resolve(response);
+          }, function (error) {
+            responseDefer.reject(error);
+          });
+          return {
+            promise: responseDefer.promise,
+            cancel: cancel
+          };
+        },
         updateItems: function () { },
+        deleteItem: function  (itemtype, id) {
+          var canceller = $q.defer();
+          var cancel = function (reason) {
+            canceller.resolve(reason);
+          };
+          var responseDefer = $q.defer();
+          var headers = {};
+          headers['Content-Type'] = 'application/json';
+          headers['Session-Token'] = this.sessionToken;
+          if (this.appToken) {
+            headers['App-Token'] = this.appToken;
+          }
+          $http({
+            method: 'DELETE',
+            timeout: canceller.promise,
+            url: this.apiUrl.toConcatSlash() + itemtype + '/' + parseInt(id),
+            headers: headers,
+            data: {},
+          }).then(function (response) {
+            responseDefer.resolve(response);
+          }, function (error) {
+            responseDefer.reject(error);
+          });
+          return {
+            promise: responseDefer.promise,
+            cancel: cancel
+          };
+        },
         deleteItems: function () { }
       };
     });
