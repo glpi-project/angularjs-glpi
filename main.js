@@ -150,6 +150,10 @@
           return GLPI.getOptions(type);
         },
         initsession: function (authorization) {
+          var canceller = $q.defer();
+          var cancel = function (reason) {
+            canceller.resolve(reason);
+          };
           var responseDefer = $q.defer();
           var headers = {};
           headers['Content-Type'] = 'application/json';
@@ -168,6 +172,7 @@
           }
           $http({
             method: 'GET',
+            timeout: canceller.promise,
             url: apiUrl + endpoints.initsession,
             headers: headers,
             data: {},
@@ -177,9 +182,16 @@
           }, function (error) {
             responseDefer.reject(error);
           });
-          return responseDefer.promise;
+          return {
+            promise: responseDefer.promise,
+            cancel: cancel
+          };
         },
         killsession: function () {
+          var canceller = $q.defer();
+          var cancel = function (reason) {
+            canceller.resolve(reason);
+          };
           var responseDefer = $q.defer();
           var headers = {};
           headers['Content-Type'] = 'application/json';
@@ -189,6 +201,7 @@
           }
           $http({
             method: 'GET',
+            timeout: canceller.promise,
             url: apiUrl + endpoints.killsession,
             headers: headers,
             data: {},
@@ -197,7 +210,10 @@
           }, function (error) {
             responseDefer.reject(error);
           });
-          return responseDefer.promise;
+          return {
+            promise: responseDefer.promise,
+            cancel: cancel
+          };
         },
         getMyProfiles: function () { },
         getActiveProfile: function () { },
@@ -208,6 +224,10 @@
         getFullSession: function () { },
         getAnItem: function () { },
         getAllItems: function (itemtype, range) {
+          var canceller = $q.defer();
+          var cancel = function (reason) {
+            canceller.resolve(reason);
+          };
           var responseDefer = $q.defer();
           if (range) {
             if (!validRange(range)) {
@@ -216,6 +236,7 @@
           }
           $http({
             method: 'GET',
+            timeout: canceller.promise,
             url: apiUrl.toConcatSlash() + itemtype,
             params: {
               range: range ? range : maxRange
@@ -226,11 +247,18 @@
           }, function (error) {
             responseDefer.reject(error);
           });
-          return responseDefer.promise;
+          return {
+            promise: responseDefer.promise,
+            cancel: cancel
+          };
         },
         getSubItems: function () { },
         getMultipleItems: function () { },
         listSearchOptions: function (item_type, range) {
+          var canceller = $q.defer();
+          var cancel = function (reason) {
+            canceller.resolve(reason);
+          };
           var responseDefer = $q.defer();
           if (range) {
             if (!validRange(range)) {
@@ -239,7 +267,10 @@
           }
           var store = {};
           store[item_type.toString()] = "&id,name,table,field,datatype,available_searchtypes,uid";
-          return responseDefer.promise;
+          return {
+            promise: responseDefer.promise,
+            cancel: cancel
+          };
         },
         searchItems: function () { },
         addItems: function () { },
