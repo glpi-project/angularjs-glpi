@@ -421,7 +421,34 @@
             cancel: cancel
           };
         },
-        getSubItems: function () { },
+        getSubItems: function  (itemtype, id, subitem) {
+          var canceller = $q.defer();
+          var cancel = function (reason) {
+            canceller.resolve(reason);
+          };
+          var responseDefer = $q.defer();
+          var headers = {};
+          headers['Content-Type'] = 'application/json';
+          headers['Session-Token'] = this.sessionToken;
+          if (this.appToken) {
+            headers['App-Token'] = this.appToken;
+          }
+          $http({
+            method: 'GET',
+            timeout: canceller.promise,
+            url: this.apiUrl.toConcatSlash() + itemtype + '/' + parseInt(id) + '/' + subitem,
+            headers: headers,
+            data: {},
+          }).then(function (response) {
+            responseDefer.resolve(response);
+          }, function (error) {
+            responseDefer.reject(error);
+          });
+          return {
+            promise: responseDefer.promise,
+            cancel: cancel
+          };
+        },
         getMultipleItems: function () { },
         listSearchOptions: function (item_type, range) {
           var canceller = $q.defer();
@@ -449,7 +476,7 @@
         },
         searchItems: function () { },
         addItems: function () { },
-        updateItem: function (itemtype, id) {
+        updateItem: function (itemtype, id, input) {
           var canceller = $q.defer();
           var cancel = function (reason) {
             canceller.resolve(reason);
@@ -466,7 +493,9 @@
             timeout: canceller.promise,
             url: this.apiUrl.toConcatSlash() + itemtype + '/' + parseInt(id),
             headers: headers,
-            data: {},
+            data: {
+              input: input
+            },
           }).then(function (response) {
             responseDefer.resolve(response);
           }, function (error) {
@@ -477,7 +506,36 @@
             cancel: cancel
           };
         },
-        updateItems: function () { },
+        updateItems: function (itemtype, input) {
+          var canceller = $q.defer();
+          var cancel = function (reason) {
+            canceller.resolve(reason);
+          };
+          var responseDefer = $q.defer();
+          var headers = {};
+          headers['Content-Type'] = 'application/json';
+          headers['Session-Token'] = this.sessionToken;
+          if (this.appToken) {
+            headers['App-Token'] = this.appToken;
+          }
+          $http({
+            method: 'PUT',
+            timeout: canceller.promise,
+            url: this.apiUrl.toConcatSlash() + itemtype,
+            headers: headers,
+            data: {
+              input: input
+            },
+          }).then(function (response) {
+            responseDefer.resolve(response);
+          }, function (error) {
+            responseDefer.reject(error);
+          });
+          return {
+            promise: responseDefer.promise,
+            cancel: cancel
+          };
+        },
         deleteItem: function  (itemtype, id) {
           var canceller = $q.defer();
           var cancel = function (reason) {
