@@ -16,6 +16,7 @@ Easily access GLPI APIs from AngularJS.
 
 * [Synopsis](#synopsis)
 * [Build Status](#build-status)
+* [Compatibility Matrix](#matrix)
 * [Installation](#installation)
 * [Documentation](#documentation)
 * [Versioning](#versioning)
@@ -35,13 +36,19 @@ This library is specifically designed for using AngularJS with GLPI, features se
 * Media download/upload
 * Batching.
 
-You will be able to call to all the methods that belong to the [GLPI REST API](https://dev.flyve.org/glpi/apirest.php), for more information such as the list of the main functions and item types of the project on the website visit the [website](https://glpi-project.github.io/angularjs-glpi/).
+You will be able to call to all the methods that belong to the [GLPI REST API](https://dev.flyve.org/glpi/apirest.php), for more information such as the list of the main functions and item types of the project visit the [website](https://glpi-project.github.io/angularjs-glpi/).
 
 ## Build Status
 
 |**Release channel**|**Beta Channel**|
 |:---:|:---:|
 |[![Travis build](https://api.travis-ci.org/glpi-project/angularjs-glpi.svg?branch=master)](https://travis-ci.org/glpi-project/angularjs-glpi)|[![Travis build](https://api.travis-ci.org/glpi-project/angularjs-glpi.svg?branch=develop)](https://travis-ci.org/glpi-project/angularjs-glpi)|
+
+## Matrix
+
+|**GLPI Version**|9.1.1|9.1.2|9.1.3|9.1.5|9.1.6|9.2.0|
+|:----|----|----|----|---|---|---|
+|**GLPI API Client**|||||||
 
 ## Installation
 
