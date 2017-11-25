@@ -3,7 +3,7 @@
 ![GLPI banner](https://user-images.githubusercontent.com/29282308/31666160-8ad74b1a-b34b-11e7-839b-043255af4f58.png)
 [![Project Status: WIP – Initial development is in progress, but there has not yet been a stable, usable release suitable for the public.](http://www.repostatus.org/badges/latest/wip.svg)](http://www.repostatus.org/#wip)
 [![Greenkeeper badge](https://badges.greenkeeper.io/glpi-project/angularjs-glpi.svg)](https://greenkeeper.io/)
-[![License](https://img.shields.io/github/license/glpi-project/angularjs-glpi.svg?&label=License)](https://github.com/glpi-project/angularjs-glpi/blob/master/LICENSE.md)
+[![License](https://img.shields.io/github/license/glpi-project/angularjs-glpi.svg?&label=License)](https://github.com/glpi-project/angularjs-glpi/blob/develop/LICENSE.md)
 [![Follow twitter](https://img.shields.io/twitter/follow/glpi_project.svg?style=social&label=Twitter&style=flat-square)](https://twitter.com/glpi_project)
 [![Telegram Group](https://img.shields.io/badge/Telegram-Group-blue.svg)](https://t.me/glpien)
 [![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg)](https://conventionalcommits.org)
@@ -68,7 +68,7 @@ See [the tags section of our GitHub project](https://github.com/glpi-project/ang
 
 ## Contact
 
-Chat with us via IRC in [#glpi on freenode](http://webchat.freenode.net/?channels=glpi]) or [@glpien on Telegram](https://t.me/glpien).
+Chat with us via IRC in [#glpi on freenode](http://webchat.freenode.net/?channels=glpi) or [@glpien on Telegram](https://t.me/glpien).
 
 ## Contribute
 
