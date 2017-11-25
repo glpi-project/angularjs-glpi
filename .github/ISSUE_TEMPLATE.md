@@ -12,7 +12,7 @@ Please help us process github issues faster by providing the following informati
 - [ ] Bug report  <!-- Please search GitHub for a similar issue or PR before submitting -->
 - [ ] Feature request
 - [ ] Documentation issue or request
-- [ ] Support request => Please do not submit support request here, instead see https://github.com/flyve-mdm/angularjs-glpi/blob/master/CONTRIBUTING.md#questions-or-doubts
+- [ ] Support request => Please do not submit support request here, instead see https://github.com/glpi-project/angularjs-glpi/blob/develop/CONTRIBUTING.md#questions-or-doubts
 
 ## Current behavior
 
