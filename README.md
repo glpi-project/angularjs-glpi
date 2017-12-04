@@ -3,7 +3,7 @@
 ![GLPI banner](https://user-images.githubusercontent.com/29282308/31666160-8ad74b1a-b34b-11e7-839b-043255af4f58.png)
 [![Project Status: WIP – Initial development is in progress, but there has not yet been a stable, usable release suitable for the public.](http://www.repostatus.org/badges/latest/wip.svg)](http://www.repostatus.org/#wip)
 [![Greenkeeper badge](https://badges.greenkeeper.io/glpi-project/angularjs-glpi.svg)](https://greenkeeper.io/)
-[![License](https://img.shields.io/github/license/glpi-project/angularjs-glpi.svg?&label=License)](https://github.com/glpi-project/angularjs-glpi/blob/master/LICENSE.md)
+[![License](https://img.shields.io/github/license/glpi-project/angularjs-glpi.svg?&label=License)](https://github.com/glpi-project/angularjs-glpi/blob/develop/LICENSE.md)
 [![Follow twitter](https://img.shields.io/twitter/follow/glpi_project.svg?style=social&label=Twitter&style=flat-square)](https://twitter.com/glpi_project)
 [![Telegram Group](https://img.shields.io/badge/Telegram-Group-blue.svg)](https://t.me/glpien)
 [![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg)](https://conventionalcommits.org)
@@ -16,6 +16,7 @@ Easily access GLPI APIs from AngularJS.
 
 * [Synopsis](#synopsis)
 * [Build Status](#build-status)
+* [Compatibility Matrix](#matrix)
 * [Installation](#installation)
 * [Documentation](#documentation)
 * [Versioning](#versioning)
@@ -35,13 +36,19 @@ This library is specifically designed for using AngularJS with GLPI, features se
 * Media download/upload
 * Batching.
 
-You will be able to call to all the methods that belong to the [GLPI REST API](https://dev.flyve.org/glpi/apirest.php), for more information such as the list of the main functions and item types of the project on the website visit the [website](https://glpi-project.github.io/angularjs-glpi/).
+You will be able to call to all the methods that belong to the [GLPI REST API](https://github.com/glpi-project/glpi/blob/master/apirest.md), for more information such as the list of the main functions and item types of the project visit the [project's website](https://glpi-project.github.io/angularjs-glpi/).
 
 ## Build Status
 
 |**Release channel**|**Beta Channel**|
 |:---:|:---:|
 |[![Travis build](https://api.travis-ci.org/glpi-project/angularjs-glpi.svg?branch=master)](https://travis-ci.org/glpi-project/angularjs-glpi)|[![Travis build](https://api.travis-ci.org/glpi-project/angularjs-glpi.svg?branch=develop)](https://travis-ci.org/glpi-project/angularjs-glpi)|
+
+## Matrix
+
+|**GLPI Version**|9.1.1|9.1.2|9.1.3|9.1.5|9.1.6|9.2.0|
+|:----|----|----|----|---|---|---|
+|**GLPI API Client**|||||||
 
 ## Installation
 
@@ -51,7 +58,7 @@ You will be able to call to all the methods that belong to the [GLPI REST API](h
 
 ## Documentation
 
-We maintain a detailed documentation of the project in the [project's website](https://glpi-project.github.io/angularjs-glpi/).
+We maintain a detailed documentation of the project on the [website](https://glpi-project.github.io/angularjs-glpi/).
 
 ## Versioning
 
@@ -61,7 +68,7 @@ See [the tags section of our GitHub project](https://github.com/glpi-project/ang
 
 ## Contact
 
-Chat with us via IRC in [#glpi on freenode](http://webchat.freenode.net/?channels=glpi]) or [@glpien on Telegram](https://t.me/glpien).
+Chat with us via IRC in [#glpi on freenode](http://webchat.freenode.net/?channels=glpi) or [@glpien on Telegram](https://t.me/glpien).
 
 ## Contribute
 
