@@ -24,5 +24,6 @@
   "homepage": "https://github.com/glpi-project/angularjs-glpi#readme",
   "dependencies": {
     "lints": "^15.1.0"
-  }
+  },
+  "devDependencies": {}
 }
